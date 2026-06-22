@@ -32,5 +32,13 @@ jobs:
       - name: Build
         run: pnpm run build
 
+      - name: Verify bundle includes action dependencies
+        run: |
+          output=$(node dist/index.js 2>&1 || true)
+          if echo "$output" | grep -q 'Cannot find module'; then
+            echo "$output"
+            exit 1
+          fi
+
       - name: Audit dependencies
         run: pnpm audit --audit-level high
