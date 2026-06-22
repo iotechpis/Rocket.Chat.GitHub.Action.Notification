@@ -4,6 +4,7 @@ on: [push]
 
 jobs:
   notifications:
+    if: github.event.repository.private == true
     name: Rocket.Chat Notifications
     runs-on: ubuntu-latest
     steps:

@@ -31,8 +31,8 @@ jobs:
           generate_release_notes: true
 
       - name: Rocket.Chat Notification
+        if: always() && github.event.repository.private == true
         uses: iotechpis/Rocket.Chat.GitHub.Action.Notification@master
-        if: always()
         with:
           type: ${{ job.status }}
           job_name: ':rocket: *Publish new release ${{ github.ref }}*'
