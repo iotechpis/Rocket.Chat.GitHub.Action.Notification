@@ -15,7 +15,7 @@ jobs:
           type: ${{ job.status }}
           job_name: ':robot_face: *Success*'
           mention: 'here'
-          url: ${{ secrets.ROCKETCHAT_WEBHOOK }}
+          url: ${{ secrets.ROCKET_CHAT_WEBHOOK }}
 
       - name: with mention on success
         uses: ./
@@ -24,7 +24,7 @@ jobs:
           job_name: ':robot_face: *Success*'
           mention: 'here'
           mention_if: 'success'
-          url: ${{ secrets.ROCKETCHAT_WEBHOOK }}
+          url: ${{ secrets.ROCKET_CHAT_WEBHOOK }}
 
       - name: with mention on always
         uses: ./
@@ -33,7 +33,7 @@ jobs:
           job_name: ':robot_face: *Success*'
           mention: 'here'
           mention_if: 'success'
-          url: ${{ secrets.ROCKETCHAT_WEBHOOK }}
+          url: ${{ secrets.ROCKET_CHAT_WEBHOOK }}
 
       - name: with mention on failure only
         uses: ./
@@ -42,14 +42,14 @@ jobs:
           job_name: ':robot_face: *Success no mention*'
           mention: 'here'
           mention_if: 'failure'
-          url: ${{ secrets.ROCKETCHAT_WEBHOOK }}
+          url: ${{ secrets.ROCKET_CHAT_WEBHOOK }}
 
       - name: with no mention
         uses: ./
         with:
           type: ${{ job.status }}
           job_name: ':robot_face: *Success no mention*'
-          url: ${{ secrets.ROCKETCHAT_WEBHOOK }}
+          url: ${{ secrets.ROCKET_CHAT_WEBHOOK }}
 
       - name: with commit info
         uses: ./
@@ -57,5 +57,5 @@ jobs:
           type: ${{ job.status }}
           job_name: ':robot_face: *Commit*'
           commit: 'true'
-          url: ${{ secrets.ROCKETCHAT_WEBHOOK }}
+          url: ${{ secrets.ROCKET_CHAT_WEBHOOK }}
           token: ${{ secrets.GITHUB_TOKEN }}

@@ -7,7 +7,7 @@ async function run() {
 	try {
 		const status: string = validateStatus(core.getInput('type', {required: true}).toLowerCase());
 		const jobName: string = core.getInput('job_name', {required: true});
-		const url: string = process.env.ROCKETCHAT_WEBHOOK || core.getInput('url');
+		const url: string = process.env.ROCKET_CHAT_WEBHOOK || core.getInput('url');
 		let mention: string = core.getInput('mention');
 		let mentionCondition: string = core.getInput('mention_if').toLowerCase();
 		const options: IncomingWebhookDefaultArguments = {
@@ -30,7 +30,7 @@ async function run() {
 		if (url === '') {
 			throw new Error(`
 				[Error] Missing Rocket.Chat Incoming Webhooks URL.
-				Please configure "ROCKETCHAT_WEBHOOK" as environment variable or
+				Please configure "ROCKET_CHAT_WEBHOOK" as environment variable or
 				specify the key called "url" in "with" section.
 			`);
 		}

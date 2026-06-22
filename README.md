@@ -18,14 +18,14 @@ Maintained fork of [RocketChat/Rocket.Chat.GitHub.Action.Notification](https://g
   - You can specify the condition to mention
 
 # How to use
-First of all, you need to set GitHub secrets for ROCKETCHAT_WEBHOOK that is Incoming Webhook URL.<br>
+First of all, you need to set GitHub secrets for ROCKET_CHAT_WEBHOOK that is Incoming Webhook URL.<br>
 You can customize the following parameters:
 
 |with parameter|required/optional|default|description|
 |:--:|:--:|:--|:--|
 |type|required|N/A|The result of GitHub Actions job<br>This parameter value must contain the following word:<br>- `success`<br>- `failure`<br>- `cancelled`<br>We recommend using ${{ job.status }}|
 |job_name|required|N/A|Means rocket.chat notification title|
-|url|required|N/A|Rocket.Chat Incoming Webhooks URL<br>Please specify this key or ROCKETCHAT_WEBHOOK environment variable<br>※ROCKETCHAT_WEBHOOK will be deprecated|
+|url|required|N/A|Rocket.Chat Incoming Webhooks URL<br>Please specify this key or ROCKET_CHAT_WEBHOOK environment variable<br>※ROCKET_CHAT_WEBHOOK will be deprecated|
 |mention|optional|N/A|Rocket.Chat message mention|
 |mention_if|optional|N/A|The condition to mention<br>This parameter can contain the following word:<br>- `success`<br>- `failure`<br>- `cancelled`<br>- `always`|
 |icon_emoji|optional|Use Rocket.Chat Incoming Webhook configuration|Rocket.Chat icon|
@@ -48,7 +48,7 @@ Please refer `action.yml` for more details.
     mention: 'here'
     mention_if: 'failure'
     channel: '#random'
-    url: ${{ secrets.ROCKETCHAT_WEBHOOK }}
+    url: ${{ secrets.ROCKET_CHAT_WEBHOOK }}
 ```
 
 ↓ Including the latest commit data
@@ -63,7 +63,7 @@ Please refer `action.yml` for more details.
     mention: 'here'
     mention_if: 'failure'
     channel: '#random'
-    url: ${{ secrets.ROCKETCHAT_WEBHOOK }}
+    url: ${{ secrets.ROCKET_CHAT_WEBHOOK }}
     commit: true
     token: ${{ secrets.GITHUB_TOKEN }}
 ```
