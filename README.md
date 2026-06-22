@@ -1,11 +1,11 @@
 # Rocket.Chat.GitHub.Action.Notification
 
-![](https://github.com/RocketChat/Rocket.Chat.GitHub.Action.Notification/workflows/TS%20Lint%20Check/badge.svg)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/RocketChat/Rocket.Chat.GitHub.Action.Notification?color=brightgreen)
-![GitHub](https://img.shields.io/github/license/RocketChat/Rocket.Chat.GitHub.Action.Notification?color=brightgreen)
+![](https://github.com/iotechpis/Rocket.Chat.GitHub.Action.Notification/workflows/TS%20Lint%20Check/badge.svg)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/iotechpis/Rocket.Chat.GitHub.Action.Notification?color=brightgreen)
+![GitHub](https://img.shields.io/github/license/iotechpis/Rocket.Chat.GitHub.Action.Notification?color=brightgreen)
 
 This is Rocket.Chat Notification for GitHub Actions.<br>
-Forked from [homoluctus/slatify](https://github.com/homoluctus/slatify). Thanks a lot for your awesome work!
+Maintained fork of [RocketChat/Rocket.Chat.GitHub.Action.Notification](https://github.com/RocketChat/Rocket.Chat.GitHub.Action.Notification), originally forked from [homoluctus/slatify](https://github.com/homoluctus/slatify).
 
 # Feature
 - Notify the result of GitHub Actions
@@ -40,7 +40,7 @@ Please refer `action.yml` for more details.
 
 ```..github/workflows/example1.yml
 - name: Rocket.Chat Notification
-  uses: RocketChat/Rocket.Chat.GitHub.Action.Notification@master
+  uses: iotechpis/Rocket.Chat.GitHub.Action.Notification@master
   if: always()
   with:
     type: ${{ job.status }}
@@ -55,7 +55,7 @@ Please refer `action.yml` for more details.
 
 ```..github/workflows/example2.yml
 - name: Rocket.Chat Notification
-  uses: RocketChat/Rocket.Chat.GitHub.Action.Notification@master
+  uses: iotechpis/Rocket.Chat.GitHub.Action.Notification@master
   if: always()
   with:
     type: ${{ job.status }}
@@ -83,4 +83,4 @@ Please refer `action.yml` for more details.
 
 # LICENSE
 
-[The MIT License (MIT)](https://github.com/RocketChat/Rocket.Chat.GitHub.Action.Notification/blob/master/LICENSE)
+[The MIT License (MIT)](https://github.com/iotechpis/Rocket.Chat.GitHub.Action.Notification/blob/master/LICENSE)

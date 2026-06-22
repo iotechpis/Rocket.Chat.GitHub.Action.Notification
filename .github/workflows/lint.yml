@@ -7,15 +7,30 @@ jobs:
     name: Lint Check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
 
       - name: Setup Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: '10.x'
+          node-version: '24.x'
+          cache: pnpm
 
-      - name: Setup TS
-        run: npm install tslint typescript -g
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
-      - name: Lint check with tslint
-        run: tslint './src/*.ts'
+      - name: Format check
+        run: pnpm run format:check
+
+      - name: Type check
+        run: pnpm exec tsc --noEmit
+
+      - name: Run tests
+        run: pnpm test
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Audit dependencies
+        run: pnpm audit --audit-level high

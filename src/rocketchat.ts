@@ -1,6 +1,4 @@
 import * as github from '@actions/github';
-import Octokit from '@octokit/rest';
-import {Context} from '@actions/github/lib/context';
 import axios from 'axios';
 
 export interface IncomingWebhookDefaultArguments {
@@ -15,7 +13,7 @@ interface Accessory {
 }
 
 class Helper {
-	readonly context: Context = github.context;
+	readonly context = github.context;
 
 	public get success(): Accessory {
 		return {
@@ -86,10 +84,10 @@ class Helper {
 		const {owner, repo} = this.context.repo;
 		const head_ref: string = process.env.GITHUB_HEAD_REF as string;
 		const ref: string = this.isPullRequest ? head_ref.replace(/refs\/heads\//, '') : this.context.sha;
-		const client: github.GitHub = new github.GitHub(token);
-		const {data: commit}: Octokit.Response<Octokit.ReposGetCommitResponse> = await client.repos.getCommit({owner, repo, ref});
-		const authorName: string = commit.author.login;
-		const authorUrl: string = commit.author.html_url;
+		const octokit = github.getOctokit(token);
+		const {data: commit} = await octokit.rest.repos.getCommit({owner, repo, ref});
+		const authorName: string = commit.author?.login ?? commit.commit.author?.name ?? 'unknown';
+		const authorUrl: string = commit.author?.html_url ?? '';
 		const commitMsg: string = commit.commit.message;
 		const commitUrl: string = commit.html_url;
 		const fields = [

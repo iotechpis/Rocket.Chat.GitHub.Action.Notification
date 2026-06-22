@@ -10,27 +10,31 @@ jobs:
     name: Build production
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v1
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
         with:
-          node-version: '10.x'
+          node-version: '24.x'
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm run build
 
       - name: Create Release
-        uses: actions/create-release@v1.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
-          draft: 'false'
-          prerelease: 'false'
+          generate_release_notes: true
 
       - name: Rocket.Chat Notification
-        uses: RocketChat/Rocket.Chat.GitHub.Action.Notification@master
+        uses: iotechpis/Rocket.Chat.GitHub.Action.Notification@master
         if: always()
         with:
           type: ${{ job.status }}
           job_name: ':rocket: *Publish new release ${{ github.ref }}*'
           channel: '#develop'
-          url: ${{ secrets.ROCKETCHAT_WEBHOOK }}
+          url: ${{ secrets.ROCKET_CHAT_WEBHOOK }}

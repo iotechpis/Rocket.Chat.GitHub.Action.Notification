@@ -41,7 +41,7 @@ async function run() {
 		await rocketchat.notify(url, options, payload);
 		console.info('Sent message to Rocket.Chat');
 	} catch (err) {
-		core.setFailed(err.message);
+		core.setFailed(err instanceof Error ? err.message : String(err));
 	}
 }
 
