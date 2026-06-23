@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const jobStatuses: string[] = ['success', 'failure', 'cancelled'];
 const metionConditions: string[] = [...jobStatuses, 'always'];
 
@@ -19,4 +21,40 @@ export function validateStatus(jobStatus: string): string {
 
 export function isValidCondition(condition: string): boolean {
 	return isValid(condition, metionConditions);
+}
+
+export function formatResponseBody(data: unknown): string {
+	if (data === undefined || data === null) {
+		return '';
+	}
+	if (typeof data === 'string') {
+		return data;
+	}
+	try {
+		return JSON.stringify(data, null, 2);
+	} catch {
+		return String(data);
+	}
+}
+
+export function formatError(err: unknown): string {
+	if (axios.isAxiosError(err)) {
+		const parts: string[] = [];
+		const status = err.response?.status;
+		const body = formatResponseBody(err.response?.data);
+
+		if (status) {
+			parts.push(`Request failed with status code ${status}`);
+		} else if (err.message) {
+			parts.push(err.message);
+		}
+
+		if (body) {
+			parts.push(body);
+		}
+
+		return parts.join('\n');
+	}
+
+	return err instanceof Error ? err.message : String(err);
 }

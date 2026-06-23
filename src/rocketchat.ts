@@ -1,6 +1,8 @@
 import * as github from '@actions/github';
 import axios from 'axios';
 
+import {formatResponseBody} from './utils';
+
 export interface IncomingWebhookDefaultArguments {
 	username: string;
 	channel: string;
@@ -148,18 +150,20 @@ export class RocketChat {
 			${JSON.stringify(data, null, 2)}
 		`);
 
-		const response = await axios.post(url, data);
+		const response = await axios.post(url, data, {
+			validateStatus: () => true
+		});
+
+		const responseBody = formatResponseBody(response.data);
 
 		console.info(`
-			Response:
-			${response.data}
+			Response (${response.status}):
+			${responseBody}
 		`);
 
 		if (response.status !== 200) {
-			throw new Error(`
-				Failed to send notification to Rocket.Chat
-				Response: ${response.data}
-			`);
+			const detail = responseBody ? `\n${responseBody}` : '';
+			throw new Error(`Failed to send notification to Rocket.Chat (HTTP ${response.status})${detail}`);
 		}
 	}
 }
